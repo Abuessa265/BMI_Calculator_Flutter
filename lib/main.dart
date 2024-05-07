@@ -23,8 +23,24 @@ class BMI extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatelessWidget {
+// 5.7=>meter
+// double ? meter = (ft * 12 + inch) * 0.0254;
+// wt/m^2 -> bmi result
+
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  TextEditingController ageController = TextEditingController();
+  TextEditingController ftController = TextEditingController();
+  TextEditingController inchController = TextEditingController();
+  TextEditingController wtController = TextEditingController();
+
+  double? ans = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +50,11 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.greenAccent,
         centerTitle: true,
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.replay_outlined)),
+          IconButton(
+              onPressed: () {
+                dispose();
+              },
+              icon: Icon(Icons.replay_outlined)),
           IconButton(onPressed: () {}, icon: Icon(Icons.more_vert_rounded))
         ],
       ),
@@ -49,18 +69,21 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(
                     width: 50,
                     child: TextFormField(
+                      controller: ageController,
                       decoration: InputDecoration(labelText: 'Age'),
                     ),
                   ),
                   SizedBox(
                     width: 50,
                     child: TextFormField(
-                      decoration: InputDecoration(labelText: 'Ht(f)'),
+                      controller: ftController,
+                      decoration: InputDecoration(labelText: 'Ht(ft)'),
                     ),
                   ),
                   SizedBox(
                     width: 50,
                     child: TextFormField(
+                      controller: inchController,
                       decoration: InputDecoration(labelText: 'Ht(in)'),
                     ),
                   ),
@@ -92,10 +115,24 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(
                     width: 90,
                     child: TextFormField(
+                      controller: wtController,
                       decoration: InputDecoration(labelText: 'Weight (kg)'),
                     ),
                   ),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.check)),
+                  IconButton(
+                      onPressed: () {
+                        double? ft = double.tryParse(ftController.text) ?? 0;
+                        double? inc = double.tryParse(inchController.text) ?? 0;
+                        double? wt = double.tryParse(wtController.text) ?? 0;
+
+                        double meter = (ft * 12 + inc) * 0.0254;
+
+                        ans = wt / (meter * meter);
+                        //bmi formula applied here
+
+                        setState(() {});
+                      },
+                      icon: Icon(Icons.check)),
                 ],
               ),
               const SizedBox(
@@ -111,11 +148,11 @@ class HomeScreen extends StatelessWidget {
                     GaugeRange(
                         startValue: 25, endValue: 40, color: Colors.yellow)
                   ], pointers: <GaugePointer>[
-                    NeedlePointer(value: 90)
+                    NeedlePointer(value: ans?.toDouble() ?? 0)
                   ], annotations: <GaugeAnnotation>[
                     GaugeAnnotation(
                         widget: Container(
-                            child: Text('90.0',
+                            child: Text((ans?.toStringAsFixed(2)).toString(),
                                 style: TextStyle(
                                     fontSize: 25,
                                     fontWeight: FontWeight.bold))),
@@ -133,13 +170,23 @@ class HomeScreen extends StatelessWidget {
                       Text(
                         'Very Severely Underweight',
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: (ans?.toDouble() ?? 0) <= 15.9
+                                ? Colors.green
+                                : Colors.black,
+                            letterSpacing: 0.4),
                       ),
                       const Spacer(),
                       Text(
                         '<=15.9',
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: (ans?.toDouble() ?? 0) <= 15.9
+                                ? Colors.green
+                                : Colors.black,
+                            letterSpacing: 0.4),
                       )
                     ],
                   ),
@@ -149,13 +196,25 @@ class HomeScreen extends StatelessWidget {
                       Text(
                         'Severely Underweight',
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: (ans?.toDouble() ?? 0) >= 16.0 &&
+                                    (ans?.toDouble() ?? 0) <= 16.9
+                                ? Colors.green
+                                : Colors.black,
+                            letterSpacing: 0.4),
                       ),
                       const Spacer(),
                       Text(
                         '16.0-16.9',
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: (ans?.toDouble() ?? 0) >= 16.0 &&
+                                    (ans?.toDouble() ?? 0) <= 16.9
+                                ? Colors.green
+                                : Colors.black,
+                            letterSpacing: 0.4),
                       )
                     ],
                   ),
@@ -165,13 +224,25 @@ class HomeScreen extends StatelessWidget {
                       Text(
                         'Underweight',
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: (ans?.toDouble() ?? 0) >= 17.0 &&
+                                    (ans?.toDouble() ?? 0) <= 18.4
+                                ? Colors.green
+                                : Colors.black,
+                            letterSpacing: 0.4),
                       ),
                       const Spacer(),
                       Text(
                         '17.0-18.4',
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: (ans?.toDouble() ?? 0) >= 17.0 &&
+                                    (ans?.toDouble() ?? 0) <= 18.4
+                                ? Colors.green
+                                : Colors.black,
+                            letterSpacing: 0.4),
                       )
                     ],
                   ),
@@ -181,13 +252,25 @@ class HomeScreen extends StatelessWidget {
                       Text(
                         'Normal',
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: (ans?.toDouble() ?? 0) >= 18.5 &&
+                                    (ans?.toDouble() ?? 0) <= 24.9
+                                ? Colors.green
+                                : Colors.black,
+                            letterSpacing: 0.4),
                       ),
                       const Spacer(),
                       Text(
                         '18.5-24.9',
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: (ans?.toDouble() ?? 0) >= 18.5 &&
+                                    (ans?.toDouble() ?? 0) <= 24.9
+                                ? Colors.green
+                                : Colors.black,
+                            letterSpacing: 0.4),
                       )
                     ],
                   ),
@@ -197,13 +280,25 @@ class HomeScreen extends StatelessWidget {
                       Text(
                         'Overweight',
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: (ans?.toDouble() ?? 0) >= 25.0 &&
+                                    (ans?.toDouble() ?? 0) <= 29.9
+                                ? Colors.green
+                                : Colors.black,
+                            letterSpacing: 0.4),
                       ),
                       const Spacer(),
                       Text(
                         '25.0-29.9',
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: (ans?.toDouble() ?? 0) >= 25.0 &&
+                                    (ans?.toDouble() ?? 0) <= 29.9
+                                ? Colors.green
+                                : Colors.black,
+                            letterSpacing: 0.4),
                       )
                     ],
                   ),
@@ -213,13 +308,25 @@ class HomeScreen extends StatelessWidget {
                       Text(
                         'Obese Class |',
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: (ans?.toDouble() ?? 0) >= 30.0 &&
+                                    (ans?.toDouble() ?? 0) <= 34.9
+                                ? Colors.green
+                                : Colors.black,
+                            letterSpacing: 0.4),
                       ),
                       const Spacer(),
                       Text(
                         '30.0-34.9',
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: (ans?.toDouble() ?? 0) >= 30.0 &&
+                                    (ans?.toDouble() ?? 0) <= 34.9
+                                ? Colors.green
+                                : Colors.black,
+                            letterSpacing: 0.4),
                       )
                     ],
                   ),
@@ -229,13 +336,25 @@ class HomeScreen extends StatelessWidget {
                       Text(
                         'Obese Class ||',
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: (ans?.toDouble() ?? 0) >= 35.0 &&
+                                    (ans?.toDouble() ?? 0) <= 39.9
+                                ? Colors.green
+                                : Colors.black,
+                            letterSpacing: 0.4),
                       ),
                       const Spacer(),
                       Text(
                         '35.0-39.9',
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: (ans?.toDouble() ?? 0) >= 35.0 &&
+                                    (ans?.toDouble() ?? 0) <= 39.9
+                                ? Colors.green
+                                : Colors.black,
+                            letterSpacing: 0.4),
                       )
                     ],
                   ),
@@ -245,13 +364,23 @@ class HomeScreen extends StatelessWidget {
                       Text(
                         'Obese Class |||',
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: (ans?.toDouble() ?? 0) >= 40.0
+                                ? Colors.green
+                                : Colors.black,
+                            letterSpacing: 0.4),
                       ),
                       const Spacer(),
                       Text(
                         '>=40.0',
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: (ans?.toDouble() ?? 0) >= 40.0
+                                ? Colors.green
+                                : Colors.black,
+                            letterSpacing: 0.4),
                       )
                     ],
                   ),
@@ -263,11 +392,21 @@ class HomeScreen extends StatelessWidget {
               Text(
                 'Normal Weight: 117-159.4 ',
                 style: TextStyle(color: Colors.red, fontSize: 24),
-              )
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    ageController.clear();
+    ftController.clear();
+    inchController.clear();
+    wtController.clear();
+    ans = 0;
+    super.dispose();
   }
 }
