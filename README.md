@@ -10,7 +10,8 @@ Live link-
 <img width="196" alt="one" src="https://github.com/Abuessa265/BMI_Calculator_Flutter/assets/76743694/25ae72f4-eced-452c-a692-ff3b090c7e9e">
 
 
-<img align="left" alt ="LandingPageHorizontal" width ="400" src="https://github.com/Abuessa265/Photo_Gallery_Ostad__Flutter/blob/master/assets/ss_two.png"></img>
+<img width="198" alt="two" src="https://github.com/Abuessa265/BMI_Calculator_Flutter/assets/76743694/a718af39-ac10-40af-9283-0f55c98a7cf1">
+
 
 
 
