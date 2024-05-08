@@ -41,6 +41,8 @@ class _HomeScreenState extends State<HomeScreen> {
   TextEditingController wtController = TextEditingController();
 
   double? ans = 0;
+  double? x = 0;
+  double? y = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -119,20 +121,54 @@ class _HomeScreenState extends State<HomeScreen> {
                       decoration: InputDecoration(labelText: 'Weight (kg)'),
                     ),
                   ),
-                  IconButton(
-                      onPressed: () {
-                        double? ft = double.tryParse(ftController.text) ?? 0;
-                        double? inc = double.tryParse(inchController.text) ?? 0;
-                        double? wt = double.tryParse(wtController.text) ?? 0;
+                  Column(
+                    children: [
+                      Container(
+                        height: 50,
+                        width: 50,
+                        margin: const EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.greenAccent,
+                        ),
+                        child: IconButton(
+                          color: Colors.black,
+                          onPressed: () {
+                            double age =
+                                double.tryParse(ageController.text) ?? 0;
 
-                        double meter = (ft * 12 + inc) * 0.0254;
+                            if (age >= 18) {
+                              y = age;
+                              double? ft =
+                                  double.tryParse(ftController.text) ?? 0;
+                              double? inc =
+                                  double.tryParse(inchController.text) ?? 0;
+                              double? wt =
+                                  double.tryParse(wtController.text) ?? 0;
 
-                        ans = wt / (meter * meter);
-                        //bmi formula applied here
+                              double meter = (ft * 12 + inc) * 0.0254;
 
-                        setState(() {});
-                      },
-                      icon: Icon(Icons.check)),
+                              ans = wt / (meter * meter);
+                            } else {
+                              ans = 0;
+                              x = ans;
+                              y = 0;
+                            }
+
+                            //bmi formula applied here
+
+                            setState(() {});
+                          },
+                          icon: Icon(Icons.check),
+                        ),
+                      ),
+                      Text(
+                        "TAP HERE",
+                        style: TextStyle(
+                            color: Colors.green, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
                 ],
               ),
               const SizedBox(
@@ -164,6 +200,24 @@ class _HomeScreenState extends State<HomeScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'You must give above 17 age',
+                        style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.w500,
+                            color: (y?.toDouble() ?? 0) >= 18
+                                ? Colors.black
+                                : Colors.red,
+                            letterSpacing: 0.4),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -389,10 +443,6 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 10,
               ),
-              Text(
-                'Normal Weight: 117-159.4 ',
-                style: TextStyle(color: Colors.red, fontSize: 24),
-              ),
             ],
           ),
         ),
@@ -406,7 +456,6 @@ class _HomeScreenState extends State<HomeScreen> {
     ftController.clear();
     inchController.clear();
     wtController.clear();
-    ans = 0;
     super.dispose();
   }
 }
