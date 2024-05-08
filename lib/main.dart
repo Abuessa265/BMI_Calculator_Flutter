@@ -204,7 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'You must give above 17 age',
+                        'Age must be above 17',
                         style: TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.w500,
