@@ -7,7 +7,8 @@ Live link-
 <br />
 # Screenshots
 1. Mobile View <br /><br />
-<img align="left" alt ="LandingPageVertical" width="250" src="https://github.com/Abuessa265/Photo_Gallery_Ostad__Flutter/blob/master/assets/ss_one.png"></img>
+<img width="196" alt="one" src="https://github.com/Abuessa265/BMI_Calculator_Flutter/assets/76743694/25ae72f4-eced-452c-a692-ff3b090c7e9e">
+
 
 <img align="left" alt ="LandingPageHorizontal" width ="400" src="https://github.com/Abuessa265/Photo_Gallery_Ostad__Flutter/blob/master/assets/ss_two.png"></img>
 
