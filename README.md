@@ -6,7 +6,7 @@ Using this live URL, you can preview the project. The device preview options all
 Live link- 
 <br />
 # Screenshots
-1. Mobile View <br /><br />
+1. Mobile View <br />
 <img width="196" alt="one" align="left" src="https://github.com/Abuessa265/BMI_Calculator_Flutter/assets/76743694/25ae72f4-eced-452c-a692-ff3b090c7e9e">
 <br />
 
