@@ -1,16 +1,22 @@
-# bmi_calculator
+# Adult BMI Calculator
 
-A new Flutter project.
+The Flutter BMI calculator application .
+# Project Live Link
+Using this live URL, you can preview the project. The device preview options allow you to select different device types based on your needs.<br />
+Live link- 
+<br />
+# Screenshots
+1. Mobile View <br /><br />
+<img align="left" alt ="LandingPageVertical" width="250" src="https://github.com/Abuessa265/Photo_Gallery_Ostad__Flutter/blob/master/assets/ss_one.png"></img>
 
-## Getting Started
+<img align="left" alt ="LandingPageHorizontal" width ="400" src="https://github.com/Abuessa265/Photo_Gallery_Ostad__Flutter/blob/master/assets/ss_two.png"></img>
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+2. Laptop View  <br /><br />
+<img align="left" alt ="LandingPageVertical" width ="400" height="250" src="https://github.com/Abuessa265/Photo_Gallery_Ostad__Flutter/blob/master/assets/ss_three.png"></img>
+<br />
+<img align="center" alt ="LandingPageHorizontal" width ="300" height="250" src="https://github.com/Abuessa265/Photo_Gallery_Ostad__Flutter/blob/master/assets/ss_four.png"></img>
